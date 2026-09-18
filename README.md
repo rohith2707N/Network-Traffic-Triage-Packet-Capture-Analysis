@@ -31,17 +31,21 @@ tcp.flags.syn == 1 && tcp.flags.ack == 0
 ```
 3. Inspected traffic statistics via **Statistics > Conversations**.
 * **Findings:** Captured a rapid burst of SYN packets targeting sequential ports on `192.168.1.4`. Identified the scanning host IP, port scan pattern, and confirmed open services before scan completion.
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_1.png)]
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_2.png)]
+
+[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/wireshark-tcp-packetlist.png)]
+
+[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/wireshark-convo.png)]
 
 ### Scenario 2: Gaining Visibility into Internal Network Traffic
 * **Objective:** Capture internal node communications to identify unexpected protocols and unauthorized lateral traffic invisible to edge firewalls.
 * **Methodology:** Set interface to promiscuous mode and monitored protocol distribution across all connected guest VMs.
 * **Findings:**
   1. **Protocol Hierarchy Analysis:** Uncovered unexpected TCP/UDP protocol usage traversing the internal subnet.
-  2. **Conversation Tracking:** Identified unauthorized session established between VM `192.168.1.16` and VM `192.168.1.4`, bypassing border security controls.     
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_3.png)]
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_4.png)]
+  2. **Conversation Tracking:** Identified unauthorized session established between VM `192.168.1.16` and VM `192.168.1.4`, bypassing border security controls.
+
+[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/coversations.png)]
+
+[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/protocol-hierarchy.png)]
 
 ### Scenario 3: Diagnosing Connectivity Issues (Network Exhaustion)
 * **Objective:** Diagnose Layer 4 connection refusals and network resource exhaustion using Expert Info and I/O Graphs.
@@ -61,9 +65,12 @@ tcp.flags.reset == 1
 * **Findings:**
 1. **I/O Graphs** confirmed connection failures were driven directly by volume-induced queue saturation.
 2. **Expert Information Engine** revealed TCP backlog saturation, showing the target server sending RST packets with window size $Win=0$ to drop incoming traffic.
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_5.png)]
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_6.png)]
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_7.png)]
+
+[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/analyze-expert-info.png)]
+
+[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/flag-reset-filter.png)]
+
+[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/IO-graph-eth0.png)]
 
 ### Scenario 4: In-Depth Incident Analysis (Plaintext Credentials & File Extraction)
 * **Objective:**
@@ -80,11 +87,12 @@ curl -u admin:password http://192.168.56.102/dvwa/login.php
 1. Cleartext FTP credentials (`USER msfadmin`, `PASS msfadmin`) were fully exposed.
 2. Base64-encoded HTTP Authorization header (Basic `YWRtaW46cGFzc3dvcmQ=`) was instantly decoded to `admin:password`.
 3. The exfiltrated `sensitive_data.txt` file was successfully recovered bit-for-bit from packet payload.
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_8.png)]
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_9.png)]
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_10.png)]
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_11.png)]
-[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_12.png)]
+
+[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/FTP-credentials.png)]
+
+[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/HTTP-credentials.png)]
+
+[![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/file_export-txt.png)]
 
 ---
 
