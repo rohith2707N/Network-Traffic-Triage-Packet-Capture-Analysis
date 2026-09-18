@@ -8,7 +8,7 @@ This project demonstrates the practical application of **Wireshark**—the indus
 ### Lab Setup & Environment
 
 | Component | Specification |
-|---|---|
+|:---|:---|
 | **Operating System** | Kali Linux (2024.1+) |
 | **Protocol Analyzer** | Wireshark 4.x |
 | **Virtualization** | VMware Workstation / Oracle VirtualBox |
@@ -90,9 +90,17 @@ curl -u admin:password http://192.168.56.102/dvwa/login.php
 
 ### Key Wireshark Capabilities Used
 | Feature | Key Application in Lab |
-|---|---|
+|:---|:---|
 | **Deep Packet Inspection (DPI)** | Uncovering plaintext payloads & unauthorized protocols |
 | **Follow Stream** | Reading cleartext FTP/HTTP transactions |
 | **Protocol Hierarchy** | Discovering unexpected network traffic |
 | **I/O Graphs** | Diagnosing denial-of-service/queue exhaustion |
 | **Export Objects** | Forensic extraction of exfiltrated assets |
+
+---
+
+### Operational Impact & Use Cases
+1. **Intrusion Detection & Threat Hunting:** Identify port scans, data exfiltration, and lateral movement live on the wire without relying solely on signature-based IDS.
+2. **Incident Response & Forensics:** Utilize `.pcapng` packet captures as durable, tamper-evident evidence to reconstruct full attack chronologies.
+3. **Infrastructure & Network Troubleshooting:** Quickly isolate network degradation causes (e.g., buffer bloat, window size exhaustion, packet loss).
+4. **Policy Enforcement & Remediation:** Highlight security risks associated with legacy plaintext protocols (HTTP/FTP/Telnet) to enforce TLS/SSH mandates.
