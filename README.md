@@ -85,3 +85,14 @@ curl -u admin:password http://192.168.56.102/dvwa/login.php
 [![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_10.png)]
 [![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_11.png)]
 [![Network-Traffic-Triage-Packet-Capture-Analysis ](assets/screenshot_12.png)]
+
+---
+
+### Key Wireshark Capabilities Used
+| Feature | Key Application in Lab |
+|---|---|
+| **Deep Packet Inspection (DPI)** | Uncovering plaintext payloads & unauthorized protocols |
+| **Follow Stream** | Reading cleartext FTP/HTTP transactions |
+| **Protocol Hierarchy** | Discovering unexpected network traffic |
+| **I/O Graphs** | Diagnosing denial-of-service/queue exhaustion |
+| **Export Objects** | Forensic extraction of exfiltrated assets |
